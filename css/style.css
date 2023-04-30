@@ -1,0 +1,188 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+
+*{
+    margin: 0%;
+    padding: 0%;
+    border: 0%;
+    font-family: 'Poppins', sans-serif;
+    box-sizing: border-box;
+}
+
+
+@media only screen and (max-width: 600px){
+    .bg{
+        background-color: #364156;
+    }
+
+    .header{
+        margin-bottom: 3.125rem;
+    }
+
+    .header__title{
+        text-align: center;
+        color: white;
+        font-size: 2.25rem;
+        font-weight: 600;
+        margin-top: 1.5rem;
+    }
+
+    main{
+        display: flex;
+        flex-flow: column nowrap;
+        justify-content: center;
+        align-items: center;
+        padding: 0 20px;
+    }
+
+    .bg-app{
+        background-color: #212D40;
+        /*display: flex;
+        flex-flow: column nowrap;*/
+        width: 100%;
+        height: 37.5rem;
+        padding: 15px 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 4px rgba(33, 45, 64, 0.75);
+    }
+
+    form{
+        display: flex;
+        flex-flow: row nowrap;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .form__text{
+        width: 260px;
+        height: 35px;
+        border-radius: 10px;
+        outline: none;
+        border: none;
+        background-color: #93A1BA;
+        padding-left: 10px;
+        color: white;
+        font-size: 1rem;
+        font-weight: 400;
+    }
+
+    .form__text::placeholder{
+        color: white;
+        font-size: 1rem;
+        font-weight: 400;
+    }
+
+    .icon{
+        width: 24px;
+    }
+
+    .icon--submit{
+        color: #364156;
+
+    }
+
+
+    .btn-submit{
+        background-color: #D66853;
+        width: 40px;
+        height: 35px;
+        border: none;
+        outline: none;
+        border-radius: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .btn-submit:hover{
+        background-color: #11151C;
+        cursor: pointer;
+        transition: all .5s ease-out;
+    }
+
+    .btn-submit:hover  .icon--submit{
+        color: #D66853;
+    }
+
+    .form{
+        margin-bottom: 50px;
+    }
+
+    .list-task{
+        display: flex;
+        flex-flow: column nowrap;
+        gap: 10px;
+        list-style: none;
+        margin-bottom: 50px;
+        max-height: 410px;
+        overflow-y: scroll;
+    }
+
+    .list-task__task{
+        background-color: #364156;
+        width: 310px;
+        height: 60px;
+        border-radius: 10px;
+        display: flex;
+        flex-flow: row nowrap;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 5px;
+    }
+
+    .task__text{
+        color: white;
+        font-size: 1rem;
+        font-weight: 400;
+    }
+
+    .task__btn{
+        background-color: transparent;
+        border: none;
+        outline: none;
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .icon--delete{
+        color: #D66853;
+    }
+
+    .list-task__task--complete{
+        background-color: #11151C;
+    }
+
+    .task__text--complete{
+        color: hsla(0, 0%, 100%, 0.4);
+        text-decoration: line-through;
+    }
+
+    .icon--deleteComplete{
+        color: #7D4E57;
+    }
+
+    .bottom{
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: space-between;
+    }
+
+    .count-task{
+        color: white;
+        font-size: 1.25rem;
+    }
+
+    .btn-deleteAll{
+        background-color: #D66853;        
+        width: 90px;
+        height: 35px;
+        border-radius: 10px;
+        border: none;
+        outline: none;
+        color: #364156;
+        font-size: 1rem;
+        font-weight: 500;
+    }
+}

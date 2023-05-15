@@ -6,9 +6,13 @@ const listTask = document.getElementById("lsTask");
 const taskTotal = document.getElementById("taskTotal");
 const taskComplete = document.getElementById("taskComplete");
 let count = 0;
-const taskArray = [];
-
+const taskArray = JSON.parse(localStorage.getItem("tasks")) ||[];
+console.log(taskArray)
 deleteAll.addEventListener("click", deleteAllTask);
+
+taskArray.forEach((task)=>{
+  renderTask(task)
+})
 
 form.addEventListener("submit", (e) => {
   e.preventDefault();
@@ -29,7 +33,7 @@ form.addEventListener("submit", (e) => {
   renderTask(task);
   addTask(task);
   countTask();
-  console.log(taskArray);
+  saveTasks();
   taskInput.value = "";
 });
 
@@ -78,7 +82,8 @@ function deleteTask(e) {
   let idFinded = taskArray.findIndex((task) => task.id === Number(idTrash));
   taskArray.splice(idFinded, 1);
   countTask();
-  taskComplete.innerText = countTaskComplete().length
+  saveTasks();
+  taskComplete.innerText = countTaskComplete().length;
 }
 
 function deleteAllTask() {
@@ -90,7 +95,8 @@ function deleteAllTask() {
     listTask.innerHTML = "";
     taskArray.splice(0, taskArray.length);
     countTask();
-    taskComplete.innerText = countTaskComplete().length
+    saveTasks();
+    taskComplete.innerText = countTaskComplete().length;
   }, 700);
 }
 
@@ -134,7 +140,8 @@ function toggleState(e, div, text, button, task) {
         />`;
     idFinded.isComplete = false;
   }
-  taskComplete.innerText = countTaskComplete().length
+  saveTasks(task)
+  taskComplete.innerText = countTaskComplete().length;
 }
 
 function countTask() {
@@ -148,4 +155,8 @@ function countTaskComplete() {
   return completedTask;
 }
 
-countTask()
+function saveTasks() {
+  localStorage.setItem("tasks", JSON.stringify(taskArray));
+}
+
+countTask();

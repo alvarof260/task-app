@@ -3,11 +3,12 @@ const form = document.querySelector("#form");
 const taskInput = document.querySelector("#task");
 const deleteAll = document.getElementById("deleteAll");
 const listTask = document.getElementById("lsTask");
+const taskTotal = document.getElementById("taskTotal");
+const taskComplete = document.getElementById("taskComplete");
 let count = 0;
 const taskArray = [];
 
-console.log(deleteAll)
-deleteAll.addEventListener("click", deleteAllTask)
+deleteAll.addEventListener("click", deleteAllTask);
 
 form.addEventListener("submit", (e) => {
   e.preventDefault();
@@ -27,6 +28,7 @@ form.addEventListener("submit", (e) => {
   };
   renderTask(task);
   addTask(task);
+  countTask();
   console.log(taskArray);
   taskInput.value = "";
 });
@@ -67,25 +69,29 @@ function renderTask(task) {
 }
 
 function deleteTask(e) {
-  let idTrash = e.target.id
-  const taskContext = document.getElementById(Number(idTrash))
-  taskContext.classList.add("fade-out-bottom")
-  setTimeout(()=>{
-    taskContext.remove()
-  },700)
-  let idFinded = taskArray.findIndex((task)=>task.id === Number(idTrash))
-  taskArray.splice(idFinded, 1)
+  let idTrash = e.target.id;
+  const taskContext = document.getElementById(Number(idTrash));
+  taskContext.classList.add("fade-out-bottom");
+  setTimeout(() => {
+    taskContext.remove();
+  }, 700);
+  let idFinded = taskArray.findIndex((task) => task.id === Number(idTrash));
+  taskArray.splice(idFinded, 1);
+  countTask();
+  taskComplete.innerText = countTaskComplete().length
 }
 
 function deleteAllTask() {
-  const tasks = document.querySelectorAll(".list-task__task")
-  tasks.forEach((task)=>{
-    task.classList.add("fade-out-bottom")
-  })
-  setTimeout(()=>{
+  const tasks = document.querySelectorAll(".list-task__task");
+  tasks.forEach((task) => {
+    task.classList.add("fade-out-bottom");
+  });
+  setTimeout(() => {
     listTask.innerHTML = "";
-    taskArray.splice(0,taskArray.length)
-  },700)
+    taskArray.splice(0, taskArray.length);
+    countTask();
+    taskComplete.innerText = countTaskComplete().length
+  }, 700);
 }
 
 function toggleState(e, div, text, button, task) {
@@ -128,4 +134,18 @@ function toggleState(e, div, text, button, task) {
         />`;
     idFinded.isComplete = false;
   }
+  taskComplete.innerText = countTaskComplete().length
 }
+
+function countTask() {
+  taskTotal.innerText = taskArray.length;
+}
+
+function countTaskComplete() {
+  let completedTask = taskArray.filter((task) => {
+    return task.isComplete === true;
+  });
+  return completedTask;
+}
+
+countTask()

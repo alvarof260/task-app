@@ -1,10 +1,13 @@
 //datos atraidos
 const form = document.querySelector("#form");
 const taskInput = document.querySelector("#task");
-const deleteAll = document.getElementById("#deleteAll");
+const deleteAll = document.getElementById("deleteAll");
 const listTask = document.getElementById("lsTask");
 let count = 0;
 const taskArray = [];
+
+console.log(deleteAll)
+deleteAll.addEventListener("click", deleteAllTask)
 
 form.addEventListener("submit", (e) => {
   e.preventDefault();
@@ -34,7 +37,7 @@ function addTask(task) {
 
 function renderTask(task) {
   const divTask = document.createElement("li");
-  divTask.classList.add("list-task__task");
+  divTask.classList.add("list-task__task", "fade-in-top");
   divTask.id = task.id;
   const taskParagraph = document.createElement("span");
   taskParagraph.classList.add("task__text");
@@ -44,6 +47,7 @@ function renderTask(task) {
   button.innerHTML = `<svg
   xmlns="http://www.w3.org/2000/svg"
   fill="none"
+  id="${task.id}"
   viewBox="0 0 24 24"
   stroke-width="1.5"
   stroke="currentColor"
@@ -56,24 +60,44 @@ function renderTask(task) {
   />`;
   divTask.append(taskParagraph, button);
   listTask.append(divTask);
-  divTask.addEventListener("click", (e) => {
-    toggleState(e,divTask,taskParagraph,button)
-  });
+  divTask.addEventListener("click", (e) =>
+    toggleState(e, divTask, taskParagraph, button, task)
+  );
+  button.addEventListener("click", (e) => deleteTask(e));
 }
 
-/* function deleteTask() {
-  
-} */
+function deleteTask(e) {
+  let idTrash = e.target.id
+  const taskContext = document.getElementById(Number(idTrash))
+  taskContext.classList.add("fade-out-bottom")
+  setTimeout(()=>{
+    taskContext.remove()
+  },700)
+  let idFinded = taskArray.findIndex((task)=>task.id === Number(idTrash))
+  taskArray.splice(idFinded, 1)
+}
 
-function toggleState(e, div, text, button) {
+function deleteAllTask() {
+  const tasks = document.querySelectorAll(".list-task__task")
+  tasks.forEach((task)=>{
+    task.classList.add("fade-out-bottom")
+  })
+  setTimeout(()=>{
+    listTask.innerHTML = "";
+    taskArray.splice(0,taskArray.length)
+  },700)
+}
+
+function toggleState(e, div, text, button, task) {
   let idTarget = e.target.id;
-  let idFinded = taskArray.find((task) => task.id === Number(idTarget));
+  let idFinded = taskArray.find((t) => t.id === Number(idTarget));
   if (!idFinded.isComplete) {
     div.classList.add("list-task__task--complete");
     text.classList.add("task__text--complete");
     button.innerHTML = `<svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
+        id="${task.id}"
         viewBox="0 0 24 24"
         stroke-width="1.5"
         stroke="currentColor"
@@ -91,6 +115,7 @@ function toggleState(e, div, text, button) {
     button.innerHTML = `<svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
+        id="${task.id}"
         viewBox="0 0 24 24"
         stroke-width="1.5"
         stroke="currentColor"
